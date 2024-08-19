@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    image: yourdockerhubusername/courses-api
+    container_name: courses-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/coursesdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - db
+
+  frontend:
+    image: yourdockerhubusername/courses-frontend
+    container_name: courses-frontend
+    ports:
+      - "3000:80"
+
+  db:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: coursesdb
+    ports:
+      - "3306:3306"
